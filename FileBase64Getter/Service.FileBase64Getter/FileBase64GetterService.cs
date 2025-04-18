@@ -13,7 +13,7 @@
                 if (startProcess)
                 {
                     ConsoleWrite("Insert the complete file path:");
-                    var filePath = ConsoleRead();
+                    var filePath = ConsoleRead()?.Replace("\"", string.Empty);
 
                     if (filePath != null)
                     {
