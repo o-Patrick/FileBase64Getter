@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35728.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker.FileBase64Getter", "Worker.FileBase64Getter\Worker.FileBase64Getter.csproj", "{CB717ECA-5D9B-4540-B2F9-F9298FAAD3F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileBase64Getter.Worker", "FileBase64Getter.Worker\FileBase64Getter.Worker.csproj", "{CB717ECA-5D9B-4540-B2F9-F9298FAAD3F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{92B249D1-ABBB-42A0-8A63-E74B9A1EA3C5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{68F3A9B2-DAAC-4FC3-A1A5-C59D060A358B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.FileBase64Getter", "Service.FileBase64Getter\Service.FileBase64Getter.csproj", "{53C2F183-748D-4EDF-A162-187CD10E4DC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileBase64Getter.Service", "FileBase64Getter.Service\FileBase64Getter.Service.csproj", "{53C2F183-748D-4EDF-A162-187CD10E4DC6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infra", "4 - Infra", "{AFA7A7EA-4DEA-4090-810F-4FF97EAAF527}"
 EndProject
@@ -50,5 +50,8 @@ Global
 		{53C2F183-748D-4EDF-A162-187CD10E4DC6} = {68F3A9B2-DAAC-4FC3-A1A5-C59D060A358B}
 		{4F81825E-A1CC-4EF3-82FD-BA129F472DC4} = {AFA7A7EA-4DEA-4090-810F-4FF97EAAF527}
 		{70B64DDB-AEC2-4A5C-8034-57F3A0269E7D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E06A49AC-9B32-4835-81F2-42B3EDAB35A1}
 	EndGlobalSection
 EndGlobal

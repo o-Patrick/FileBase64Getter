@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FileBase64Getter.IoC\FileBase64Getter.IoC.csproj" />
+    <ProjectReference Include="..\FileBase64Getter.Service\FileBase64Getter.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

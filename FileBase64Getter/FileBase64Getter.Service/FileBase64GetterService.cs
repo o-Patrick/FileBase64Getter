@@ -2,7 +2,7 @@
 using static FileBase64Getter.Framework.LogManagement.LogHandler;
 using FileBase64Getter.Framework.LogManagement.Interfaces;
 
-namespace Service.FileBase64Getter
+namespace FileBase64Getter.Service
 {
     public class FileBase64GetterService
     {

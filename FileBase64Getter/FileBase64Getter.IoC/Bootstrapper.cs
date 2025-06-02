@@ -1,7 +1,7 @@
 ﻿using FileBase64Getter.Framework.LogManagement;
 using FileBase64Getter.Framework.LogManagement.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Service.FileBase64Getter;
+using FileBase64Getter.Service;
 
 namespace FileBase64Getter.IoC
 {

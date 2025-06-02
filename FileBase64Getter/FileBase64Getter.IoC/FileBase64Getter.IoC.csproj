@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Service.FileBase64Getter\Service.FileBase64Getter.csproj" />
+    <ProjectReference Include="..\FileBase64Getter.Service\FileBase64Getter.Service.csproj" />
   </ItemGroup>
 
 </Project>

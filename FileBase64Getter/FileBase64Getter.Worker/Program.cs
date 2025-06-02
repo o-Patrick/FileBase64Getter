@@ -1,9 +1,9 @@
 ﻿using FileBase64Getter.IoC;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.FileBase64Getter;
+using FileBase64Getter.Service;
 
-namespace Worker.FileBase64Getter
+namespace FileBase64Getter.Worker
 {
     internal class Program
     {
