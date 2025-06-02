@@ -16,4 +16,10 @@
     <ProjectReference Include="..\FileBase64Getter.IoC\FileBase64Getter.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Log\Default.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

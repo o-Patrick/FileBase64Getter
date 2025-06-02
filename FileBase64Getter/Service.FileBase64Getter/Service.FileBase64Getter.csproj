@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FileBase64Getter.Framework\FileBase64Getter.Framework.csproj" />
+  </ItemGroup>
+
 </Project>

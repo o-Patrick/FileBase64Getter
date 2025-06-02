@@ -1,67 +1,100 @@
-﻿namespace Service.FileBase64Getter
+﻿using static FileBase64Getter.Framework.ClipboardManagement.Clipboard;
+using static FileBase64Getter.Framework.LogManagement.LogHandler;
+using FileBase64Getter.Framework.LogManagement.Interfaces;
+
+namespace Service.FileBase64Getter
 {
     public class FileBase64GetterService
     {
-        public void Execute()
+        #region | Fields |
+        private readonly ILogHandler _logger;
+        private readonly string _processName;
+        #endregion
+
+        #region | Constructors |
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="logger"></param>
+        public FileBase64GetterService(ILogHandler logger)
         {
+            _logger = logger;
+            _processName = GetType().Name;
+        }
+        #endregion
+
+        #region | Methods |
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <returns></returns>
+        public async Task ExecuteAsync()
+        {
+            _logger.FileBuilder("Program started.");
+            bool restartProgram;
+            
             try
             {
-                ConsoleWrite("Start process? (y/n)");
-                var answer = ConsoleRead();
-                bool startProcess = answer != null && answer.Equals("y", StringComparison.InvariantCultureIgnoreCase);
-
-                if (startProcess)
+                do
                 {
-                    ConsoleWrite("Insert the complete file path:");
-                    var filePath = ConsoleRead()?.Replace("\"", string.Empty);
+                    Console.Clear();
+                    bool startProcess = ConsoleRead("Start process? (y/n)").Equals("y", StringComparison.InvariantCultureIgnoreCase);
 
-                    if (filePath != null)
+                    if (startProcess)
                     {
-                        var base64Content = ReadFile(filePath);
+                        var filePath = ConsoleRead("Insert the complete file path:").Trim().Replace("\"", string.Empty).Replace("\'", string.Empty);
 
-                        if (base64Content.Length <= 0)
+                        if (!File.Exists(filePath))
                         {
-                            throw new FileNotFoundException("Inserted file could not be found");
+                            _logger.FileBuilder($"File not found at {filePath}.");
                         }
+                        else
+                        {
+                            _logger.FileBuilder("File found.");
+                            var base64Content = await ReadFileAsync(filePath);
 
-                        ConsoleWrite($"File Base64 content: {base64Content}");
+                            if (base64Content.Length <= 0)
+                            {
+                                _logger.FileBuilder($"File {Path.GetFileName(filePath)} could not be read.");
+                            }
+                            else
+                            {
+                                ConsoleWrite($"File Base64 content: {base64Content}");
+                                _logger.FileBuilder("File Base64 generated successfully.");
+                                SetText(base64Content);
+                                ConsoleWrite("Base64 copied to clipboard.");
+                            }
+                        }
                     }
-                }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+
+                    restartProgram = ConsoleRead("Restart program? (y/n)").Equals("y", StringComparison.InvariantCultureIgnoreCase);
+                } while (restartProgram);
             }
-            catch (Exception exc)
+            catch (Exception e)
             {
-                ConsoleWrite($"Exception: {exc}.");
+                _logger.FileBuilder($"Exception: {e}.");
             }
+            
+            _logger.FileBuilder("Program finished.");
+            await _logger.SaveFileLocallyAsync(_processName);
         }
 
-        private string ReadFile(string filePath)
+        #region | Private methods |
+        /// <summary>
+        /// Reads file asynchronously
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private static async Task<string> ReadFileAsync(string filePath)
         {
-            string base64Content = string.Empty;
-
-            try
-            {
-                byte[] fileBytes = File.ReadAllBytes(filePath);
-                base64Content = Convert.ToBase64String(fileBytes);
-            }
-            catch (Exception exc)
-            {
-                ConsoleWrite($"Exception: {exc}");
-            }
-
-            return base64Content;
+            byte[] fileBytes = await File.ReadAllBytesAsync(filePath);
+            return Convert.ToBase64String(fileBytes);
         }
-
-        private static void ConsoleWrite(string message)
-        {
-            message = $"{DateTime.Now:dd-MM-yyyy HH:mm:ss.fff} | {message} |";
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(message);
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
-
-        private static string? ConsoleRead()
-        {
-            return Console.ReadLine();
-        }
+        #endregion
+        #endregion
     }
 }

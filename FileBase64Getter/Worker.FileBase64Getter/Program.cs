@@ -25,7 +25,7 @@ namespace Worker.FileBase64Getter
         internal static void Execute(IServiceProvider serviceProvider)
         {
             var service = serviceProvider.GetRequiredService<FileBase64GetterService>();
-            service.Execute();
+            service.ExecuteAsync().Wait();
         }
     }
 }
