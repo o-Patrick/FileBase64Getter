@@ -31,48 +31,42 @@ namespace FileBase64Getter.Service
         public async Task ExecuteAsync()
         {
             _logger.FileBuilder("Program started.");
-            bool restartProgram;
+            bool shouldRestartProgram;
             
             try
             {
                 do
                 {
                     Console.Clear();
-                    bool startProcess = ConsoleRead("Start process? (y/n)").Equals("y", StringComparison.InvariantCultureIgnoreCase);
+                    var filePath = ConsoleRead("Insert the complete file path:")
+                        .Trim()
+                        .Replace("\"", string.Empty)
+                        .Replace("\'", string.Empty);
 
-                    if (startProcess)
+                    if (!File.Exists(filePath))
                     {
-                        var filePath = ConsoleRead("Insert the complete file path:").Trim().Replace("\"", string.Empty).Replace("\'", string.Empty);
-
-                        if (!File.Exists(filePath))
-                        {
-                            _logger.FileBuilder($"File not found at {filePath}.");
-                        }
-                        else
-                        {
-                            _logger.FileBuilder("File found.");
-                            var base64Content = await ReadFileAsync(filePath);
-
-                            if (base64Content.Length <= 0)
-                            {
-                                _logger.FileBuilder($"File {Path.GetFileName(filePath)} could not be read.");
-                            }
-                            else
-                            {
-                                ConsoleWrite($"File Base64 content: {base64Content}");
-                                _logger.FileBuilder("File Base64 generated successfully.");
-                                SetText(base64Content);
-                                ConsoleWrite("Base64 copied to clipboard.");
-                            }
-                        }
+                        _logger.FileBuilder($"File not found at '{filePath}'.");
                     }
                     else
                     {
-                        Environment.Exit(0);
+                        _logger.FileBuilder("File found.");
+                        var base64Content = await ReadFileAsync(filePath);
+
+                        if (base64Content.Length <= 0)
+                        {
+                            _logger.FileBuilder($"File '{Path.GetFileName(filePath)}' could not be read.");
+                        }
+                        else
+                        {
+                            ConsoleWrite($"File Base64 content: {base64Content}");
+                            _logger.FileBuilder("File Base64 generated successfully.");
+                            SetText(base64Content);
+                            ConsoleWrite("Base64 copied to clipboard.");
+                        }
                     }
 
-                    restartProgram = ConsoleRead("Restart program? (y/n)").Equals("y", StringComparison.InvariantCultureIgnoreCase);
-                } while (restartProgram);
+                    shouldRestartProgram = ConsoleRead("Restart program? (y/n)").Equals("y", StringComparison.InvariantCultureIgnoreCase);
+                } while (shouldRestartProgram);
             }
             catch (Exception e)
             {
